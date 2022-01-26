@@ -2,15 +2,19 @@
 
 
 
-function Employee(EmployeeID, FullName, Department, Level, ImageURL) {
-    this.EmployeeID = EmployeeID;
+function Employee(FullName, Department, Level, ImageURL) {
+
     this.FullName = FullName;
     this.Department = Department;
     this.Level = Level;
     this.ImageURL = ImageURL;
 }
 
-
+Employee.prototype.generateID = function () {
+    var id = 1000;
+    id += 1;
+    return id;
+}
 
 Employee.prototype.netSalary = function () {
     var s = 0;
@@ -30,9 +34,7 @@ Employee.prototype.netSalary = function () {
         tax = s * 0.075;
         return Math.ceil(s - tax);
     }
-    else {
-        alert("Please enter correct level");
-    }
+
 }
 
 Employee.prototype.PrintNameSalary = function () {
@@ -59,6 +61,11 @@ Rana.PrintNameSalary()
 
 const Hadi = new Employee(1006, "Hadi Ahmad", "Finance", "Mid-Senior");
 Hadi.PrintNameSalary();
+
+document.getElementById("submit").addEventListener("click", collectData)
+function collectData() {
+    document.getElementsByTagName("form") = Employee();
+}
 
 
 

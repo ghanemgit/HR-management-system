@@ -19,6 +19,36 @@
         <br><br>
         <script src="/JS/apps.js"></script>
 
+        <form action="addNewEmployee" id="form1">
+
+            <label for="fname">Full name</label>
+            <input type="text" id="fname" name="fullname" placeholder="Employee name">
+
+            <label for="depSelect">Department</label>
+            <select name="department" id="dep">
+                <option value="select">Select</option>
+                <option value="admin">Adminstration</option>
+                <option value="mk">Marketing</option>
+                <option value="dev">Development</option>
+                <option value="fin">Finance</option>
+            </select>
+
+            <label for="levelSelect">Level</label>
+            <select name="level" id="le">
+                <option value="select">Select</option>
+                <option value="ju">Junior</option>
+                <option value="mdSe">Mid-Senior</option>
+                <option value="se">Senior</option>
+            </select>
+
+            <label for="imageUrl">Image URL</label>
+            <input type="text" id="img" name="imagelLink" placeholder="Enter URL">
+
+            <label for="submit"></label>
+            <input type="button" id="submit" name="SubmitButton" value="Submit">
+
+        </form>
+
     </main>
 
 
