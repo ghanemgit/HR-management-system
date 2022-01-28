@@ -1,71 +1,108 @@
 
 
-
+let employeeForm = document.getElementById('form1');
+let empSection = document.getElementById('newEmployee');
+let dataStyle = document.getElementById('newEmployeeList');
+let sort = document.getElementById('admin');
+let sort1 = document.getElementById('markt');
+let sort2 = document.getElementById('deve');
+let sort3 = document.getElementById('fina');
+let br = document.write("<br>");
 
 function Employee(FullName, Department, Level, ImageURL) {
 
-    this.FullName = FullName;
-    this.Department = Department;
-    this.Level = Level;
-    this.ImageURL = ImageURL;
+    this.employeeID = 0;
+    this.fullname = FullName;
+    this.department = Department;
+    this.level = Level;
+    this.imagelLink = ImageURL;
+    this.Salary = 0;
 }
 
+
+let id = 1000;
 Employee.prototype.generateID = function () {
-    var id = 1000;
-    id += 1;
-    return id;
-}
 
+    this.employeeID = id;
+    id++;
+}
 Employee.prototype.netSalary = function () {
     var s = 0;
     var tax = 0;
-    if (this.Level == "Senior") {
+    if (this.level == "Senior") {
         s = Math.random() * (2000 - 1500) + 1500;
         tax = s * 0.075;
-        return Math.ceil(s - tax);
+        this.Salary = Math.ceil(s - tax);
     }
-    else if (this.Level == "Mid-Senior") {
+    else if (this.level == "Mid-Senior") {
         s = Math.random() * (1500 - 1000) + 1000;
         tax = s * 0.075;
-        return Math.ceil(s - tax);
+        this.Salary = Math.ceil(s - tax);
     }
-    else if (this.Level == "Junior") {
+    else if (this.level == "Junior") {
         s = Math.random() * (1000 - 500) + 500;
         tax = s * 0.075;
-        return Math.ceil(s - tax);
+        this.Salary = Math.ceil(s - tax);
     }
 
 }
 
-Employee.prototype.PrintNameSalary = function () {
-    document.write(` Name is ${this.FullName} and the salary ${this.netSalary()}<br> `);
+
+Employee.prototype.render = function () {
+
+
+    if (this.department == "Adminstration") { }
+
+    else if (this.department == "Marketing") {
+        sort = sort1;
+    }
+
+    else if (this.department == "Development") {
+        sort = sort2
+    }
+    else if (this.department == "Finance") {
+        sort = sort3;
+    }
+
+    let img = document.createElement('img');
+    sort.appendChild(img);
+    img.setAttribute('src', this.imagelLink);
+    img.setAttribute('alt', this.fullname);
+
+
+    let p = document.createElement('p');
+    sort.appendChild(p);
+    p.textContent = `Name: ${this.fullname}- ID: ${this.employeeID}`;
+
+
+    let p1 = document.createElement('p');
+    sort.appendChild(p1);
+    p1.textContent = `Department: ${this.department} - Level: ${this.level}`;
+
+
+
+    let p2 = document.createElement('p');
+    sort.appendChild(p2);
+    p2.textContent = `Salary: ${this.Salary}`;
+
 }
 
-const Ghazi = new Employee(1000, "Ghazi Samer", "Administration", "Senior", "  ");
-Ghazi.PrintNameSalary();
+function collectData(event) {
+    event.preventDefault();
+    let fname = event.target.fullname.value;
+    let dep = event.target.department.value;
+    let lev = event.target.level.value;
+    let img = event.target.imagelLink.value;
 
-const Lana = new Employee(1001, "Lana Ali", "Finance", "Senior", "  ");
-Lana.PrintNameSalary();
-
-const Tamara = new Employee(1002, "Tamara Ayoub", "Marketing", "Senior", "  ");
-Tamara.PrintNameSalary();
-
-const Safi = new Employee(1003, "Safi Walid", "Administration", "Mid-Senior", "  ");
-Safi.PrintNameSalary();
-
-const Omar = new Employee(1004, "Omar Zaid", "Development", "Senior", "  ");
-Omar.PrintNameSalary();
-
-const Rana = new Employee(1005, "Rana Saleh", "Development", "Junior", "  ");
-Rana.PrintNameSalary()
-
-const Hadi = new Employee(1006, "Hadi Ahmad", "Finance", "Mid-Senior");
-Hadi.PrintNameSalary();
-
-document.getElementById("submit").addEventListener("click", collectData)
-function collectData() {
-    document.getElementsByTagName("form") = Employee();
+    let newEmployee = new Employee(fname, dep, lev, img);
+    newEmployee.generateID();
+    newEmployee.netSalary();
+    newEmployee.render();
 }
+
+employeeForm.addEventListener('submit', collectData);
+
+
 
 
 
