@@ -1,5 +1,4 @@
 
-
 let employeeForm = document.getElementById('form1');
 let empSection = document.getElementById('newEmployee');
 let dataStyle = document.getElementById('newEmployeeList');
