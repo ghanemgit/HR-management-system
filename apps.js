@@ -1,11 +1,12 @@
 
-
 let employeeForm = document.getElementById('form1');
-let empSection = document.getElementById('newEmployeeList');
+let empSection = document.getElementById('newEmployee');
+let dataStyle = document.getElementById('newEmployeeList');
 let sort = document.getElementById('admin');
 let sort1 = document.getElementById('markt');
 let sort2 = document.getElementById('deve');
 let sort3 = document.getElementById('fina');
+let inner = document.getElementById('toUseInner');
 let allEmployee = [];
 checkLocalAndPush();
 
@@ -52,35 +53,28 @@ Employee.prototype.netSalary = function () {
 function render(employeeFromLS) {
 
     //newEmployeeList.innerHTML = '';
-
     for (let i = 0; i < employeeFromLS.length; i++) {
 
 
         let employee = employeeFromLS[i];
 
-        if (employee.department == "Adminstration") {
-
-        }
+        if (employee.department == "Adminstration") { }
 
         else if (employee.department == "Marketing") {
             sort = sort1;
-
         }
 
         else if (employee.department == "Development") {
             sort = sort2
-
         }
         else if (employee.department == "Finance") {
             sort = sort3;
-
         }
 
         let img = document.createElement('img');
+        sort.appendChild(img);
         img.setAttribute('src', employee.imagelLink);
         img.setAttribute('alt', employee.fullname);
-        sort.appendChild(img);
-
 
 
         let p = document.createElement('p');
@@ -99,7 +93,6 @@ function render(employeeFromLS) {
         p2.textContent = `Salary: ${employee.Salary}`;
 
     }
-
 }
 
 function collectData(event) {
@@ -112,6 +105,7 @@ function collectData(event) {
     let newEmployee = new Employee(fname, dep, lev, img);
     newEmployee.generateID();
     newEmployee.netSalary();
+
     allEmployee.push(newEmployee);
     let jsonArr = toJSON(allEmployee);
     saveToLocalS(jsonArr);
@@ -139,19 +133,15 @@ function readFromLocalS() {
     }
 }
 
-
 function toJSON() {
     let jsonArr = JSON.stringify(allEmployee);
     return jsonArr;
 }
-
 function saveToLocalS(jsonArray) {
     localStorage.setItem('allEmployee', jsonArray)
 }
 
-
 render(readFromLocalS());
-
 employeeForm.addEventListener('submit', collectData);
 
 
