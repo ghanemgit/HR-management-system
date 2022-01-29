@@ -7,7 +7,10 @@ let sort = document.getElementById('admin');
 let sort1 = document.getElementById('markt');
 let sort2 = document.getElementById('deve');
 let sort3 = document.getElementById('fina');
-let br = document.write("<br>");
+let inner = document.getElementById('toUseInner');
+let allEmployee = [];
+checkLocalAndPush();
+
 
 function Employee(FullName, Department, Level, ImageURL) {
 
@@ -48,43 +51,49 @@ Employee.prototype.netSalary = function () {
 }
 
 
-Employee.prototype.render = function () {
+function render(employeeFromLS) {
+
+    //newEmployeeList.innerHTML = '';
+    for (let i = 0; i < employeeFromLS.length; i++) {
 
 
-    if (this.department == "Adminstration") { }
+        let employee = employeeFromLS[i];
 
-    else if (this.department == "Marketing") {
-        sort = sort1;
+        if (employee.department == "Adminstration") { }
+
+        else if (employee.department == "Marketing") {
+            sort = sort1;
+        }
+
+        else if (employee.department == "Development") {
+            sort = sort2
+        }
+        else if (employee.department == "Finance") {
+            sort = sort3;
+        }
+
+        let img = document.createElement('img');
+        sort.appendChild(img);
+        img.setAttribute('src', employee.imagelLink);
+        img.setAttribute('alt', employee.fullname);
+
+
+        let p = document.createElement('p');
+        sort.appendChild(p);
+        p.textContent = `Name: ${employee.fullname}- ID: ${employee.employeeID}`;
+
+
+        let p1 = document.createElement('p');
+        sort.appendChild(p1);
+        p1.textContent = `Department: ${employee.department} - Level: ${employee.level}`;
+
+
+
+        let p2 = document.createElement('p');
+        sort.appendChild(p2);
+        p2.textContent = `Salary: ${employee.Salary}`;
+
     }
-
-    else if (this.department == "Development") {
-        sort = sort2
-    }
-    else if (this.department == "Finance") {
-        sort = sort3;
-    }
-
-    let img = document.createElement('img');
-    sort.appendChild(img);
-    img.setAttribute('src', this.imagelLink);
-    img.setAttribute('alt', this.fullname);
-
-
-    let p = document.createElement('p');
-    sort.appendChild(p);
-    p.textContent = `Name: ${this.fullname}- ID: ${this.employeeID}`;
-
-
-    let p1 = document.createElement('p');
-    sort.appendChild(p1);
-    p1.textContent = `Department: ${this.department} - Level: ${this.level}`;
-
-
-
-    let p2 = document.createElement('p');
-    sort.appendChild(p2);
-    p2.textContent = `Salary: ${this.Salary}`;
-
 }
 
 function collectData(event) {
@@ -97,9 +106,43 @@ function collectData(event) {
     let newEmployee = new Employee(fname, dep, lev, img);
     newEmployee.generateID();
     newEmployee.netSalary();
-    newEmployee.render();
+
+    allEmployee.push(newEmployee);
+    let jsonArr = toJSON(allEmployee);
+    saveToLocalS(jsonArr);
+    render(readFromLocalS());
+
 }
 
+
+function checkLocalAndPush() {
+    if (allEmployee.length == 0) {
+        let arr = readFromLocalS();
+        if (arr.length != 0) {
+            allEmployee = arr;
+        }
+    }
+}
+
+function readFromLocalS() {
+    let jsonArr = localStorage.getItem('allEmployee');
+    let arr = JSON.parse(jsonArr);
+    if (arr !== null) {
+        return arr;
+    } else {
+        return [];
+    }
+}
+
+function toJSON() {
+    let jsonArr = JSON.stringify(allEmployee);
+    return jsonArr;
+}
+function saveToLocalS(jsonArray) {
+    localStorage.setItem('allEmployee', jsonArray)
+}
+
+render(readFromLocalS());
 employeeForm.addEventListener('submit', collectData);
 
 
