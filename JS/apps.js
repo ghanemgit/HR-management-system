@@ -9,6 +9,14 @@ let sort2 = document.getElementById('deve');
 let sort3 = document.getElementById('fina');
 
 
+function Employee(EmployeeID, FullName, Department, Level, ImageURL, Salary) {
+    this.EmployeeID = EmployeeID;
+    this.FullName = FullName;
+    this.Department = Department;
+    this.Level = Level;
+    this.ImageURL = ImageURL;
+
+
 
 function Employee(FullName, Department, Level, ImageURL) {
 
