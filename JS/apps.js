@@ -2,12 +2,13 @@
 
 
 
-function Employee(EmployeeID, FullName, Department, Level, ImageURL) {
+function Employee(EmployeeID, FullName, Department, Level, ImageURL, Salary) {
     this.EmployeeID = EmployeeID;
     this.FullName = FullName;
     this.Department = Department;
     this.Level = Level;
     this.ImageURL = ImageURL;
+    this.Salary = 0;
 }
 
 
