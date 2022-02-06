@@ -12,12 +12,12 @@ let sort3 = document.getElementById('fina');
 
 function Employee(FullName, Department, Level, ImageURL) {
 
-    this.employeeID = 0;
+
     this.fullname = FullName;
     this.department = Department;
     this.level = Level;
     this.imagelLink = ImageURL;
-    this.Salary = 0;
+
 }
 
 
@@ -64,28 +64,33 @@ Employee.prototype.render = function () {
         sort = sort3;
     }
 
+
+    sort.style.cssText = 'vertical-align: top;display: grid | inline-grid;;text-align: center;width: 33.33%;float: left'
     let img = document.createElement('img');
+    sort.appendChild(img);
     img.setAttribute('src', this.imagelLink);
     img.setAttribute('alt', this.fullname);
-    sort.appendChild(img);
+    img.style.cssText = 'display: flex;align-items: center;margin-left:150px;width: 250px;height: 250px';
+
 
 
 
     let p = document.createElement('p');
     sort.appendChild(p);
     p.textContent = `Name: ${this.fullname}- ID: ${this.employeeID}`;
+    p.style.cssText = 'display: flex;align-items: center;height: 60px;padding-left:50px;padding-top:300px;display: block';
 
 
     let p1 = document.createElement('p');
     sort.appendChild(p1);
     p1.textContent = `Department: ${this.department} - Level: ${this.level}`;
-
+    p1.style.cssText = 'display: flex;align-items: center;height: 60px;padding-left:50px;display: block';
 
 
     let p2 = document.createElement('p');
     sort.appendChild(p2);
     p2.textContent = `Salary: ${this.Salary}`;
-
+    p2.style.cssText = 'margin-bottom: 50px;display: flex;align-items: center;height: 60px;padding-left:50px;display: block';
 }
 
 
